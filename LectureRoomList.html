@@ -1,0 +1,70 @@
+<div ng-controller="RoomDetail">
+    <h2>Lecture Rooms:</h2>
+    <p><input id="myInput" type="text" size="40" placeholder="Search by room name/code" ng-model ="search"></p>
+
+    <!-- Previous code-->
+    <!--first table-->
+    <!--
+        <table class="w3-table-all"  >         
+            <tr class="w3-red">
+                <td>Room Name</td>
+                <td>Room Code</td>
+            </tr>
+        </table>
+
+        <table class="w3-table-all" ng-repeat="item in nama_ruang | filter: search"  data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <tr ng-click="getRowTData($event, item); item.show = !item.show" ng-if="item.kod_ruang.startsWith('N28') 
+                                                                                    && (item.jenis == 'Bilik Kuliah' || item.jenis == 'Makmal') 
+                                                                                    && (item.nama_ruang_singkatan.startsWith('BK') || item.nama_ruang_singkatan.startsWith('MPK'))">
+                <td class="b">{{item.nama_ruang}}<br></td>
+                <td class="b">{{item.nama_ruang_singkatan}}</td>
+            </tr>
+        </table> 
+    -->
+    
+    <!-- New code below to be reviewed by Najib-->
+        <table class="w3-table-all w3-hoverable">         
+            <tr class="w3-red">
+                <th class="w3-center">Room Name</th>
+                <th class="w3-center">Room Code</th>
+            </tr>
+
+            <tr ng-repeat="item in nama_ruang | filter: search"  data-bs-toggle="modal" data-bs-target="#exampleModal"
+                ng-click="getRowTData($event, item); item.show = !item.show" ng-if="item.kod_ruang.startsWith('N28') 
+                                                                                    && (item.jenis == 'Bilik Kuliah' || item.jenis == 'Makmal') 
+                                                                                    && (item.nama_ruang_singkatan.startsWith('BK') || item.nama_ruang_singkatan.startsWith('MPK'))">
+                <td class="b">{{item.nama_ruang}}</td>
+                <td class="b w3-center">{{item.nama_ruang_singkatan}}</td>
+            </tr>
+        </table>
+    <!-- New code above to be reviewed by Najib-->
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p class="modal-title" id="exampleModalLabel">Room Timetable</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" ng-repeat="detail in detail">
+                    <span ng-if="detail.subjek.kod_subjek">Subject Code: {{detail.subjek.kod_subjek}}</span><br>
+                    <span ng-if="detail.subjek.seksyen">Section: {{detail.subjek.seksyen}}</span><br>
+                    <span ng-if="detail.subjek">Day : {{getDayName(detail.hari)}} </span><br>
+                    <span ng-if="detail.subjek">Time :{{getTime(detail.masa)}} </span><br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    $("table.w3-table-all").click(function() { closeTable();  });
+
+    function closeTable() {
+        document.getElementById("table.w3-table-all").style.display = "none"; 
+    }
+</script>

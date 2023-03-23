@@ -1,0 +1,49 @@
+
+<div ng-controller="classTimetable" >
+
+    <div ng-show="userTimetable">
+    
+        <h2>Class Timetable</h2>
+         <br>
+        <table class="table table-hover">
+            <tr class="w3-red">
+                <th>Hari</th>
+                <th>Masa</th>
+                <th>Kod Subjek</th>
+                <th>Seksyen</th>
+                <th>Ruang</th>
+            </tr>
+            <tr ng-repeat="item in userTimetable | orderBy:['hari','masa']" ng-click="getRowTData($event, item)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <td>{{item.day}}</td>
+                <td >{{item.masa}}</td>
+                <td>{{item.kod_subjek}}</td>
+                <td>{{item.seksyen}}</td>
+                <td>{{item.ruang.nama_ruang_singkatan}}</td>
+            </tr>
+        </table>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="modal-title" id="exampleModalLabel">Class Details</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                <div class="modal-body" ng-repeat="item in userTimetable | filter: { hari: hari, masa: masa }">
+                    <span><b>{{item.day}} &nbsp;{{item.masa}}</b></span><br>
+                    <span>Kod Subjek: {{item.kod_subjek}}</span><br>
+                    <span ng-repeat="item in subjek | filter: kod_subjek">
+                        Nama Subjek: {{item.nama_subjek}}</span><br>
+                    <span>Seksyen: {{item.seksyen}}</span><br><br>
+                    <span>Ruang: {{item.ruang.nama_ruang_singkatan}}</span><br>
+                    <span>Nama Ruang: {{item.ruang.nama_ruang}}</span><br>
+                    <span>Kod Ruang: {{item.ruang.kod_ruang}}</span><br>
+                    <br><br>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>

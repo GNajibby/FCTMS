@@ -1,0 +1,58 @@
+<html>
+<head>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+    </style>
+</head>
+<body>
+    <div ng-controller="sessem">
+        <br>
+        <h2 style="font-family: Montserrat;">SEMESTER : {{semester}}</h2>
+        <p><input  class="form-control" id="myInput" style="border-radius: 50px;" type="text" placeholder="Search by subject code/name.." ng-model ="search"></p>
+        <!--first table-->
+    
+        <table class="table table-hover">  
+            <tr>
+                <th>No</th>
+                <th>Subject Code</th>
+                <th>Subject Name</th>
+            </tr>
+            <tr ng-repeat="item in subject | filter: search" ng-click="getRowTData($event, item)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <td class="b">{{$index+1}}</td>
+                <td><b>{{item.kod_subjek}}</b><br></td>
+                <td class="b">{{item.nama_subjek | uppercase }}</td>
+            </tr>
+        </table>
+
+         <!-- Modal -->
+         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="modal-title" id="exampleModalLabel">Section</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                <div class="modal-body" ng-repeat="seksyen in section | filter: kod_subjek">
+                    <!--<span>Bil. Seksyen: {{seksyen.bil_seksyen}}</span><br>
+                    <span>Bil. Pensyarah : {{seksyen.bil_pensyarah}}</span><br>
+                    <span>Bil. Pelajar : {{seksyen.bil_pelajar}}</span><br><br>-->
+                    <div ng-repeat="list in seksyen.seksyen_list">
+                        <span>Pensyarah : {{list.pensyarah}} </span> <br>
+                        <span>Seksyen    : {{list.seksyen}} </span> <br>
+                        <span>Pelajar : {{list.bil_pelajar}} </span> <br>
+
+                        <div ng-repeat="t in time | filter: {seksyen:list.seksyen}">
+                            <span>Hari  : <b>{{t.hari}}</b>  </span>
+                            <span>Masa  : <b>{{t.masa}}</b> </span> <br>
+                            <span>Ruang : <b>{{t.ruang.nama_ruang_singkatan}}</b> | <b> {{t.ruang.nama_ruang}}</b></span>
+                            <br><br>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<style>tr:hover {background-color: whitesmoke;}</style>

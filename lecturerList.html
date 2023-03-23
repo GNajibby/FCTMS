@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Exam Timetable</title>
+</head>
+
+<body>
+    <br>
+    <h2>Senarai Pensyarah</h2>
+    <div ng-controller="pensyarah">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" ng-model="search">
+        <br>
+        <!--First Table-->
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Pensyarah</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="item in data | filter: search" ng-click="getRowData($event, item)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <tr>
+                    <td>
+                        <b>{{item.nama}}</b><br>
+                        Bil. Pelajar: {{item.bil_pelajar}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+         <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="modal-title" id="exampleModalLabel">{{nama}}</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                <div class="modal-body" ng-repeat="subject in subjek | filter: '2022/2023'">
+                    <span>{{subject.kod_subjek}}        : {{subject.nama_subjek}}</span> <br>
+                    <span>Seksyen       : {{subject.seksyen}}</span> <br>
+                    <span>Bil. Pelajar  : {{subject.bil_pelajar}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
